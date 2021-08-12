@@ -376,8 +376,9 @@ export class UnityAdapter implements TestAdapter {
 	}
 
 	async buildTest(node: TestSuiteInfo): Promise<any> {
-		let buildArgs = this.testBuildArgs;
-
+		const vscodeVariables = require('vscode-variables');
+		let buildArgs = vscodeVariables(this.testBuildArgs);
+		
 		if (node.file != undefined) {
 			let target = path.parse(node.file).name.replace(new RegExp('(.*)'), this.testBuildTargetRegex);
 			target = target.replace(/\\/g,'/');
